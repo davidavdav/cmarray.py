@@ -1,15 +1,28 @@
 #!/usr/bin/env python
+## sgearray (c) 2016 David A. van Leeuwen
+## 
+## distribute a list over SGE array jobs
 
-import os
+import os, logging
 
-def issgearray():
-    return "SGE_TASK_ID" in os.environ and "SGE_TASK_LAST" in os.environ and os.environ["SGE_TASK_ID"] != "undefined"
+issgearray = "SGE_TASK_ID" in os.environ and "SGE_TASK_LAST" in os.environ and os.environ["SGE_TASK_ID"] != "undefined"
+if not issgearray:
+    start = 0
+    step = 1
+else:
+    start = int(os.environ["SGE_TASK_ID"]) - 1
+    step = int(os.environ["SGE_TASK_LAST"])
+
+if start >= step:
+    logging.warn("Inconsitent SGE environment variables start %d > step %d", start+1, step)
     
 def sgearray(array):
-    if not issgearray():
-        return array
-    start = int(os.environ["SGE_TASK_ID"])-1
-    step = int(os.environ["SGE_TASK_LAST"])
-    if step < start or step > len(array):
-        raise ValueError("Incorrect array parameters")
-    return [array[i] for i in range(start, len(array), step)]
+    i = 0
+    for element in array:
+        if i % step == start:
+            yield element
+        i += 1
+
+def sgeskip(i):
+    return i % step != start
+

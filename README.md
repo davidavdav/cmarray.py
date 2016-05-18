@@ -1,9 +1,15 @@
 # sgearray.py
 Python wrapper around iterators for simple SGE array tasks, analogous to the [Julia version](https://github.com/davidavdav/SGEArrays.jl)
 
-##
+## Summary
 
 This module makes it easy to submit array jobs for Sun Grid Engine in cases you outer script language is Python. 
+
+## Install
+
+```sh
+pip install git+https://github.com/davidavdav/sgearray.py.git
+```
 
 ## Synopsis
 

@@ -1,4 +1,4 @@
-# sgearray.py
+# cmarray.py
 Python wrapper around iterators for simple cluster manager array tasks, analogous to the [Julia version](https://github.com/davidavdav/SGEArrays.jl). 
 
 This should work with both SGE and Slurm.
@@ -19,9 +19,9 @@ Script to be submitted to SGE / Slurm: `script.py`
 ```python
 #!/usr/bin/env python
 
-from sgearray import sgearray
+from cmarray import cmarray
 
-for line in sgearray(open("files.list")):
+for line in cmarray(open("files.list")):
   file == line.strip()
   ## process `file`
 ```

@@ -3,7 +3,7 @@
 
 from distutils.core import setup
 
-setup(name='sgearray',
+setup(name='cmarray',
       version='0.1',
-      packages=['sgearray'],
+      packages=['cmarray'],
       )

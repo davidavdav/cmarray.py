@@ -3,6 +3,8 @@
 ## 
 ## distribute a list over SGE or Slurm array jobs
 
+from __future__ import division
+from past.utils import old_div
 import os, logging
 
 issgearray = "SGE_TASK_ID" in os.environ and "SGE_TASK_LAST" in os.environ and os.environ["SGE_TASK_ID"] != "undefined"
@@ -15,8 +17,8 @@ if issgearray:
     step = int(os.environ["SGE_TASK_LAST"])
 elif isslurmarray:
     id, min, max, slurmstep = [int(os.environ[key]) for key in slurmvars]
-    start = id
-    step = (max - min + 1) / slurmstep
+    start = id - min
+    step = old_div((max - min + 1), slurmstep)
 else:
     start = 0
     step = 1

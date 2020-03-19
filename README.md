@@ -22,7 +22,7 @@ Script to be submitted to SGE / Slurm: `script.py`
 from cmarray import cmarray
 
 for line in cmarray(open("files.list")):
-  file == line.strip()
+  file = line.strip()
   ## process `file`
 ```
 
